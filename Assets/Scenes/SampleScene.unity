@@ -160,7 +160,8 @@ MonoBehaviour:
   - {fileID: 58859288314877874, guid: 25bc38ab0ab8832429bd73680340a699, type: 3}
   zSpawn: 0
   groundLength: 30
-  numberOfGround: 5
+  numberOfGround: 3
+  playerTransform: {fileID: 1090954833}
 --- !u!4 &251261959
 Transform:
   m_ObjectHideFlags: 0
