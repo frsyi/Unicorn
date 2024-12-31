@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     private float forwardSpeed = 5.0f;
     private float speed = 10.0f;
-    private float boundary = 5.0f; 
+    private float boundary = 3.0f;
     private float horizontalinput;
     private Rigidbody playerRb;
     private bool isOnGround = true;
-
+    public bool isGameOver = false;
+    
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
@@ -20,14 +22,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontalinput = Input.GetAxis("Horizontal");
-        if (transform.position.x > boundary) 
+        if (transform.position.x > boundary)
         {
-            transform.position = new Vector3(boundary, transform.position.y, transform.position.z); 
+            transform.position = new Vector3(boundary, transform.position.y, transform.position.z);
         }
-        if (transform.position.x < -boundary) 
+        if (transform.position.x < -boundary)
         {
             transform.position = new Vector3(-boundary, transform.position.y, transform.position.z);
         }
+
         transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalinput);
         transform.Translate(Vector3.forward * Time.deltaTime * forwardSpeed);
 
@@ -38,11 +41,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision) 
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Road"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
         }
+        else if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            isGameOver = true;
+            SceneManager.LoadScene(1);
+        }
     }
 }
+        
