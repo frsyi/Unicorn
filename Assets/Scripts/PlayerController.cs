@@ -13,10 +13,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private bool isOnGround = true;
     public bool isGameOver = false;
+
+    public AudioClip gameClip;
+    private AudioSource playerAudio;
     
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,6 +48,12 @@ public class PlayerController : MonoBehaviour
         if (forwardSpeed < maxSpeed)
         {
             forwardSpeed += 0.1f * Time.deltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            playerRb.AddForce(Vector3.up * 15, ForceMode.Impulse);
+            isOnGround = false;
+            playerAudio.PlayOneShot(gameClip, 1.0f);
         }
     }
 
