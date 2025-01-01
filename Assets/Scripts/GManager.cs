@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class GManager : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI coinText;
 
     void Start()
     {
-        scoreText.text = "Score : " + MainManager.Instance.score.ToString();
+        coinText.text = "Coins : " + MainSceneManager.Instance.coin.ToString();
     }
 
     void Update()
@@ -17,19 +17,20 @@ public class GManager : MonoBehaviour
         
     }
 
-    public void addScore()
+    public void addCoin()
     {
-        scoreText.text = MainManager.Instance.score.ToString(); 
+        MainSceneManager.Instance.coin += 1;
+        coinText.text = "Coins : " + MainSceneManager.Instance.coin.ToString(); 
     }
 
     public void SaveData()
     {
-        MainManager.Instance.SaveScoreData(); 
+        MainSceneManager.Instance.SaveCoinData(); 
     }
 
     public void LoadData()
     {
-        MainManager.Instance.LoadScoreData(); //memanggil metode LoadScoreData() dari MainManager untuk memuat skor dari file JSON
-        scoreText.text = MainManager.Instance.score.ToString();
+        MainSceneManager.Instance.LoadCoinData(); 
+        coinText.text = MainSceneManager.Instance.coin.ToString();
     }
 }

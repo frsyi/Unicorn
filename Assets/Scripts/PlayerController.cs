@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private float forwardSpeed = 5.0f;
+    public float forwardSpeed = 5.0f;
+    public float maxSpeed;
     private float speed = 10.0f;
     private float boundary = 3.0f;
     private float horizontalinput;
@@ -39,11 +40,16 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
             isOnGround = false;
         }
+
+        if (forwardSpeed < maxSpeed)
+        {
+            forwardSpeed += 0.1f * Time.deltaTime;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Road"))
         {
             isOnGround = true;
         }

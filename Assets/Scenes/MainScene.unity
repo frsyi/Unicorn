@@ -457,6 +457,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 114920, guid: ff249e9534924c744bdfa6a3d2d1746c, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 433694, guid: ff249e9534924c744bdfa6a3d2d1746c, type: 3}
       propertyPath: m_LocalScale.x
       value: 6
@@ -540,6 +544,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58307baa35da71c479494a5a6c1b9ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardSpeed: 5
+  maxSpeed: 15
+  isGameOver: 0
 --- !u!4 &1090954833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 433694, guid: ff249e9534924c744bdfa6a3d2d1746c, type: 3}
@@ -724,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c61212482f096448d078a9a3ec4ba5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1518035418}
+  coinText: {fileID: 1518035418}
 --- !u!4 &1236290218
 Transform:
   m_ObjectHideFlags: 0
@@ -749,7 +756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1457682555}
-  - component: {fileID: 1457682554}
+  - component: {fileID: 1457682556}
   m_Layer: 0
   m_Name: Main Manager
   m_TagString: Untagged
@@ -757,19 +764,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1457682554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457682553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cee0c3be94bd75e42af61cc578185b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
 --- !u!4 &1457682555
 Transform:
   m_ObjectHideFlags: 0
@@ -785,6 +779,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1457682556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457682553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c670915108c8b4799e37dd825452da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: 0
 --- !u!1 &1518035416
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,7 +804,7 @@ GameObject:
   - component: {fileID: 1518035419}
   - component: {fileID: 1518035418}
   m_Layer: 5
-  m_Name: Score Text
+  m_Name: Coin Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -842,7 +849,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:'
+  m_text: 'Coins:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
