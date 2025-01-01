@@ -1,24 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverSceneManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public TextMeshProUGUI coinText;
+
     void Start()
     {
-        
+        coinText.text = "Total Coins: " + MainSceneManager.Instance.coin.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void Replay()
+    public void PlayAgain()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
