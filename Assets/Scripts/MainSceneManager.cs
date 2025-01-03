@@ -19,6 +19,8 @@ public class MainSceneManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        LoadCoinData();
     }
 
     [Serializable]

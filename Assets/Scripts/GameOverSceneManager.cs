@@ -10,6 +10,7 @@ public class GameOverSceneManager : MonoBehaviour
 
     void Start()
     {
+        MainSceneManager.Instance.LoadCoinData();
         coinText.text = "Total Coins: " + MainSceneManager.Instance.coin.ToString();
     }
 

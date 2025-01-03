@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
-            playerRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);
             isOnGround = false;
         }
 
@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
             isGameOver = true;
+            MainSceneManager.Instance.SaveCoinData();
             SceneManager.LoadScene(2);
         }
     }

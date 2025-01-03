@@ -9,6 +9,7 @@ public class GManager : MonoBehaviour
 
     void Start()
     {
+        MainSceneManager.Instance.LoadCoinData();
         coinText.text = "Coins : " + MainSceneManager.Instance.coin.ToString();
     }
 
