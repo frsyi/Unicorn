@@ -53,8 +53,8 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * 15, ForceMode.Impulse);
             isOnGround = false;
-            playerAudio.PlayOneShot(gameClip, 1.0f);
-        }
+            playerAudio.PlayOneShot(gameClip, 1.0f);      
+        } 
     }
 
     private void OnCollisionEnter(Collision collision)
