@@ -44,15 +44,14 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
-            playerAnimator.SetTrigger("Jump");
             playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);
             isOnGround = false;
             playerAudio.PlayOneShot(gameClip, 1.0f);
         }
-
+        
         if (Input.GetKeyDown(KeyCode.DownArrow) && isOnGround)
         {
-            playerAnimator.SetTrigger("Slide"); 
+            playerAnimator.SetTrigger("Slide");
         }
 
         if (forwardSpeed < maxSpeed)
