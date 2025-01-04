@@ -13,20 +13,26 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private bool isOnGround = true;
     public bool isGameOver = false;
+    private Animator playerAnimator;
 
     public AudioClip gameClip;
     private AudioSource playerAudio;
-    
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.Translate(Vector3.forward * Time.deltaTime * forwardSpeed);
+
         horizontalinput = Input.GetAxis("Horizontal");
+        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalinput);
+
         if (transform.position.x > boundary)
         {
             transform.position = new Vector3(boundary, transform.position.y, transform.position.z);
@@ -36,25 +42,23 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-boundary, transform.position.y, transform.position.z);
         }
 
-        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalinput);
-        transform.Translate(Vector3.forward * Time.deltaTime * forwardSpeed);
-
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
+            playerAnimator.SetTrigger("Jump");
             playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);
             isOnGround = false;
+            playerAudio.PlayOneShot(gameClip, 1.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isOnGround)
+        {
+            playerAnimator.SetTrigger("Slide"); 
         }
 
         if (forwardSpeed < maxSpeed)
         {
             forwardSpeed += 0.1f * Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-        {
-            playerRb.AddForce(Vector3.up * 15, ForceMode.Impulse);
-            isOnGround = false;
-            playerAudio.PlayOneShot(gameClip, 1.0f);      
-        } 
     }
 
     private void OnCollisionEnter(Collision collision)
