@@ -9,15 +9,17 @@ public class GroundManager : MonoBehaviour
     public float groundLength = 30;
     public int numberOfGround = 3;
     private List<GameObject> activeGrounds = new List<GameObject>();
-    public Transform playerTransform;
+    private Transform playerTransform; 
 
     void Start()
     {
+        playerTransform = FindActivePlayer();
+
         for (int i = 0; i < numberOfGround; i++)
         {
             if (i == 0)
             {
-                SpawnGround(0); 
+                SpawnGround(0);
             }
             else
             {
@@ -28,10 +30,16 @@ public class GroundManager : MonoBehaviour
 
     void Update()
     {
-        if (playerTransform.position.z -35 > zSpawn - (numberOfGround * groundLength))
+        Transform activePlayer = FindActivePlayer();
+        if (activePlayer != playerTransform)
+        {
+            playerTransform = activePlayer;
+        }
+
+        if (playerTransform != null && playerTransform.position.z - 35 > zSpawn - (numberOfGround * groundLength))
         {
             SpawnGround(Random.Range(0, groundPrefabs.Length));
-            DeleteGround(); 
+            DeleteGround();
         }
     }
 
@@ -46,5 +54,17 @@ public class GroundManager : MonoBehaviour
     {
         Destroy(activeGrounds[0]);
         activeGrounds.RemoveAt(0);
+    }
+
+    private Transform FindActivePlayer()
+    {
+        foreach (GameObject character in FindObjectOfType<PlayerSelector>().characters)
+        {
+            if (character.activeSelf)
+            {
+                return character.transform;
+            }
+        }
+        return null;
     }
 }
