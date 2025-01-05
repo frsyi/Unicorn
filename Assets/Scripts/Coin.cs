@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private GManager gManagerScript;
+    private MainSceneManager mainSceneManagerScript;
 
     void Start()
     {
-        gManagerScript = GameObject.Find("GManager").GetComponent<GManager>();
+        mainSceneManagerScript = GameObject.Find("MainSceneManager").GetComponent<MainSceneManager>();
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class Coin : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            gManagerScript.addCoin();
+            mainSceneManagerScript.addCoin();
             Destroy(gameObject);
         }
     }

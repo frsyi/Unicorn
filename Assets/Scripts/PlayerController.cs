@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
             isGameOver = true;
-            MainSceneManager.Instance.SaveCoinData();
+            GameManager.Instance.SaveCoinData();
             SceneManager.LoadScene(2);
         }
     }

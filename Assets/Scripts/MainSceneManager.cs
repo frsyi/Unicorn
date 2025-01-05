@@ -1,58 +1,37 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using System.IO;
-using UnityEngine.SceneManagement;
 
 public class MainSceneManager : MonoBehaviour
 {
-    public static MainSceneManager Instance;
-    public int coin;
+    public TextMeshProUGUI coinText;
 
-    private void Awake()
+    void Start()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        LoadCoinData();
+        GameManager.Instance.LoadCoinData();
+        coinText.text = "Coins : " + GameManager.Instance.coin.ToString();
     }
 
-    [Serializable]
-    public class CoinData
+    void Update()
     {
-        public int coinX;
+
     }
 
-    public void SaveCoinData()
+    public void addCoin()
     {
-        CoinData data = new CoinData();
-        data.coinX = coin;
-
-        string json = JsonUtility.ToJson(data);
-
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        GameManager.Instance.coin += 1;
+        coinText.text = "Coins : " + GameManager.Instance.coin.ToString();
     }
 
-    public void LoadCoinData()
+    public void SaveData()
     {
-        string path = Application.persistentDataPath + "/savefile.json";
-        if (File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-
-            CoinData data = JsonUtility.FromJson<CoinData>(json);
-            coin = data.coinX;
-        }
+        GameManager.Instance.SaveCoinData();
     }
 
-    public void PlayGame()
+    public void LoadData()
     {
-        SceneManager.LoadScene(1);
+        GameManager.Instance.LoadCoinData();
+        coinText.text = GameManager.Instance.coin.ToString();
     }
 }
