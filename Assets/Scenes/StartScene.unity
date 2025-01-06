@@ -518,7 +518,7 @@ MonoBehaviour:
     index: 1
     price: 400
     isUnlocked: 0
-  - name: V\anguard
+  - name: Vanguard
     index: 2
     price: 1000
     isUnlocked: 0
@@ -1453,8 +1453,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1100852539}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 696138236}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:

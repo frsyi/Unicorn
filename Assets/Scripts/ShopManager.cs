@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
@@ -94,5 +95,10 @@ public class ShopManager : MonoBehaviour
             buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy - " + c.price;
             buyButton.interactable = (GameManager.Instance.coin >= c.price);
         }
+    }
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }

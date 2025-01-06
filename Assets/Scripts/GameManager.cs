@@ -48,10 +48,4 @@ public class GameManager : MonoBehaviour
             coin = data.coinX;
         }
     }
-
-    public void PlayGame()
-    {
-        Debug.Log("Play button pressed!");
-        SceneManager.LoadScene(1);
-    }
 }
