@@ -256,6 +256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sporty Granny
       objectReference: {fileID: 0}
+    - target: {fileID: 2448842638529969155, guid: 3fee3b39a6e5e0c4cac306ef278d1b26, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3078168336884360889, guid: 3fee3b39a6e5e0c4cac306ef278d1b26, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -295,6 +299,14 @@ PrefabInstance:
     - target: {fileID: 3078168336884360889, guid: 3fee3b39a6e5e0c4cac306ef278d1b26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955251129087618536, guid: 3fee3b39a6e5e0c4cac306ef278d1b26, type: 3}
+      propertyPath: m_Height
+      value: 1.9036102
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955251129087618536, guid: 3fee3b39a6e5e0c4cac306ef278d1b26, type: 3}
+      propertyPath: m_Center.y
+      value: 0.935339
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -851,9 +863,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1380409658}
     m_Modifications:
+    - target: {fileID: 1719514572765669229, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
+      propertyPath: m_Height
+      value: 1.8177763
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719514572765669229, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
+      propertyPath: m_Radius
+      value: 0.259722
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719514572765669229, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
+      propertyPath: m_Center.x
+      value: -0.010433257
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719514572765669229, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
+      propertyPath: m_Center.y
+      value: 0.8927019
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719514572765669229, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
+      propertyPath: m_Center.z
+      value: -0.01524663
+      objectReference: {fileID: 0}
     - target: {fileID: 6938251591356250873, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
       propertyPath: m_Name
       value: Timmy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6938251591356250873, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7710813074644770883, guid: a87fb9658f21b484d97969d4026cee03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -961,6 +997,10 @@ PrefabInstance:
     - target: {fileID: 7507689114535763957, guid: f841085f21509d34791c724b7b6877d2, type: 3}
       propertyPath: m_Name
       value: Vanguard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507689114535763957, guid: f841085f21509d34791c724b7b6877d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14,15 +14,23 @@ public class PlayerController : MonoBehaviour
     private bool isOnGround = true;
     public bool isGameOver = false;
     private Animator playerAnimator;
+    private CapsuleCollider playerCollider; 
 
     public AudioClip gameClip;
     private AudioSource playerAudio;
+
+    private Vector3 originalColliderCenter; 
+    private float originalColliderHeight;
 
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
         playerAnimator = GetComponent<Animator>();
+        playerCollider = GetComponent<CapsuleCollider>(); 
+
+        originalColliderCenter = playerCollider.center;
+        originalColliderHeight = playerCollider.height;
     }
 
     void Update()
@@ -48,16 +56,28 @@ public class PlayerController : MonoBehaviour
             isOnGround = false;
             playerAudio.PlayOneShot(gameClip, 1.0f);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.DownArrow) && isOnGround)
         {
             playerAnimator.SetTrigger("Slide");
+            StartCoroutine(SlideCollider());
         }
 
         if (forwardSpeed < maxSpeed)
         {
             forwardSpeed += 0.1f * Time.deltaTime;
         }
+    }
+
+    private IEnumerator SlideCollider()
+    {
+        playerCollider.height = originalColliderHeight / 2;
+        playerCollider.center = new Vector3(originalColliderCenter.x, originalColliderCenter.y / 2, originalColliderCenter.z);
+
+        yield return new WaitForSeconds(1.0f);
+
+        playerCollider.height = originalColliderHeight;
+        playerCollider.center = originalColliderCenter;
     }
 
     private void OnCollisionEnter(Collision collision)
