@@ -46,6 +46,8 @@ public class ShopManager : MonoBehaviour
     {
         currentCharacterIndex = (currentCharacterIndex + 1) % characterModels.Length;
         ActivateCharacterModel(currentCharacterIndex);
+        PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
+        PlayerPrefs.Save();
         UpdateUI();
     }
 
@@ -57,6 +59,8 @@ public class ShopManager : MonoBehaviour
             currentCharacterIndex = characterModels.Length - 1;
         }
         ActivateCharacterModel(currentCharacterIndex);
+        PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
+        PlayerPrefs.Save();
         UpdateUI();
     }
 
@@ -84,6 +88,9 @@ public class ShopManager : MonoBehaviour
     {
         CharacterData c = characters[currentCharacterIndex];
         coinText.text = "Coins: " + GameManager.Instance.coin.ToString();
+
+        PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
+        PlayerPrefs.Save();
 
         if (c.isUnlocked)
         {
