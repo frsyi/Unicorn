@@ -6,80 +6,93 @@ public class ShopManager : MonoBehaviour
 {
     public int currentCharacterIndex;
     public GameObject[] characterModels;
-
+    public TextMeshProUGUI coinText;
     public CharacterData[] characters;
     public Button buyButton;
-    
+
     void Start()
     {
+        GameManager.Instance.LoadCoinData();
+        coinText.text = "Coins: " + GameManager.Instance.coin.ToString();
+
         foreach (CharacterData character in characters)
         {
             if (character.price == 0)
             {
                 character.isUnlocked = true;
-            } else
+            }
+            else
             {
-                character.isUnlocked = PlayerPrefs.GetInt(character.name, 0) == 0 ? false: true;
+                character.isUnlocked = PlayerPrefs.GetInt(character.name, 0) == 0 ? false : true;
             }
         }
-        
+
         currentCharacterIndex = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        ActivateCharacterModel(currentCharacterIndex);
+        UpdateUI();
+    }
+
+    private void ActivateCharacterModel(int index)
+    {
         foreach (GameObject character in characterModels)
         {
             character.SetActive(false);
         }
-        characterModels[currentCharacterIndex].SetActive(true);
-    }
-
-    void Update()
-    {
-        UpdateUI();
+        characterModels[index].SetActive(true);
     }
 
     public void ChangeNext()
     {
-        characterModels[currentCharacterIndex].SetActive(false);
-        currentCharacterIndex++;
-        if (currentCharacterIndex == characterModels.Length)
-        {
-            currentCharacterIndex = 0;
-        }
-        characterModels[currentCharacterIndex].SetActive(true);
-        PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
+        currentCharacterIndex = (currentCharacterIndex + 1) % characterModels.Length;
+        ActivateCharacterModel(currentCharacterIndex);
+        UpdateUI();
     }
 
     public void ChangePrevious()
     {
-        characterModels[currentCharacterIndex].SetActive(false);
         currentCharacterIndex--;
-        if (currentCharacterIndex == -1)
+        if (currentCharacterIndex < 0)
         {
             currentCharacterIndex = characterModels.Length - 1;
         }
-        characterModels[currentCharacterIndex].SetActive(true);
-        PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
+        ActivateCharacterModel(currentCharacterIndex);
+        UpdateUI();
     }
-    
+
+    public void UnlockCharacter()
+    {
+        CharacterData c = characters[currentCharacterIndex];
+        int totalCoins = GameManager.Instance.coin;
+
+        if (totalCoins >= c.price && !c.isUnlocked)
+        {
+            c.isUnlocked = true;
+            PlayerPrefs.SetInt(c.name, 1);
+            GameManager.Instance.coin -= c.price;
+            GameManager.Instance.SaveCoinData();
+            PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
+            UpdateUI();
+        }
+        else
+        {
+            Debug.Log("Not enough coins or character already unlocked!");
+        }
+    }
+
     private void UpdateUI()
     {
         CharacterData c = characters[currentCharacterIndex];
+        coinText.text = "Coins: " + GameManager.Instance.coin.ToString();
+
         if (c.isUnlocked)
         {
             buyButton.gameObject.SetActive(false);
-        } 
-        else 
+        }
+        else
         {
             buyButton.gameObject.SetActive(true);
-            buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy-" + c.price;
-            
-            if (c.price < PlayerPrefs.GetInt("TotalCoins", 0))
-            {
-                buyButton.interactable = true;
-            }
-            else
-            {
-                buyButton.interactable = false;
-            }
+            buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy - " + c.price;
+            buyButton.interactable = (GameManager.Instance.coin >= c.price);
         }
     }
 }

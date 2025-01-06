@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayGame()
     {
+        Debug.Log("Play button pressed!");
         SceneManager.LoadScene(1);
     }
 }
