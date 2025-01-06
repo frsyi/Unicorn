@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider playerCollider; 
 
     public AudioClip gameClip;
+    public AudioClip jumpClip;
     private AudioSource playerAudio;
 
     private Vector3 originalColliderCenter; 
@@ -31,6 +32,13 @@ public class PlayerController : MonoBehaviour
 
         originalColliderCenter = playerCollider.center;
         originalColliderHeight = playerCollider.height;
+
+        if (gameClip != null )
+        {
+            playerAudio.clip = gameClip;
+            playerAudio.loop = true;
+            playerAudio.Play();
+        }
     }
 
     void Update()
@@ -54,7 +62,11 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("Jump");
             playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);
             isOnGround = false;
-            playerAudio.PlayOneShot(gameClip, 1.0f);
+
+            if (jumpClip != null)
+            {
+                playerAudio.PlayOneShot(jumpClip, 1.0f);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) && isOnGround)
