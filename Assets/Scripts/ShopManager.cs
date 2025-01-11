@@ -10,6 +10,7 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI coinText;
     public CharacterData[] characters;
     public Button buyButton;
+    public Button playButton;
 
     void Start()
     {
@@ -44,7 +45,11 @@ public class ShopManager : MonoBehaviour
 
     public void ChangeNext()
     {
-        currentCharacterIndex = (currentCharacterIndex + 1) % characterModels.Length;
+        currentCharacterIndex++;
+        if (currentCharacterIndex == characterModels.Length)
+        {
+            currentCharacterIndex = 0;
+        }
         ActivateCharacterModel(currentCharacterIndex);
         PlayerPrefs.SetInt("SelectedCharacter", currentCharacterIndex);
         PlayerPrefs.Save();
@@ -95,17 +100,28 @@ public class ShopManager : MonoBehaviour
         if (c.isUnlocked)
         {
             buyButton.gameObject.SetActive(false);
+            playButton.interactable = true;
         }
         else
         {
             buyButton.gameObject.SetActive(true);
             buyButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy - " + c.price;
             buyButton.interactable = (GameManager.Instance.coin >= c.price);
+            playButton.interactable = false;
         }
     }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        CharacterData c = characters[currentCharacterIndex];
+
+        if (c.isUnlocked)
+        {
+            SceneManager.LoadScene(1); 
+        }
+        else
+        {
+            Debug.Log("Character is still locked!"); 
+        }
     }
 }

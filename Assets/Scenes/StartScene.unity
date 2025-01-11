@@ -523,6 +523,7 @@ MonoBehaviour:
     price: 1000
     isUnlocked: 0
   buyButton: {fileID: 1078412362}
+  playButton: {fileID: 1553389862}
 --- !u!1001 &784730294
 PrefabInstance:
   m_ObjectHideFlags: 0
