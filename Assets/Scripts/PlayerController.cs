@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float forwardSpeed = 5.0f;
-    public float maxSpeed;
+    public float maxSpeed = 15.0f;
     private float speed = 10.0f;
     private float boundary = 3.0f;
     private float horizontalinput;
@@ -14,13 +14,13 @@ public class PlayerController : MonoBehaviour
     private bool isOnGround = true;
     public bool isGameOver = false;
     private Animator playerAnimator;
-    private CapsuleCollider playerCollider; 
+    private CapsuleCollider playerCollider;
 
     public AudioClip gameClip;
     public AudioClip jumpClip;
     private AudioSource playerAudio;
 
-    private Vector3 originalColliderCenter; 
+    private Vector3 originalColliderCenter;
     private float originalColliderHeight;
 
     void Start()
@@ -28,12 +28,12 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
         playerAnimator = GetComponent<Animator>();
-        playerCollider = GetComponent<CapsuleCollider>(); 
+        playerCollider = GetComponent<CapsuleCollider>();
 
         originalColliderCenter = playerCollider.center;
         originalColliderHeight = playerCollider.height;
 
-        if (gameClip != null )
+        if (gameClip != null)
         {
             playerAudio.clip = gameClip;
             playerAudio.loop = true;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-boundary, transform.position.y, transform.position.z);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isOnGround)
         {
             playerAnimator.SetTrigger("Jump");
             playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && isOnGround)
+        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && isOnGround)
         {
             playerAnimator.SetTrigger("Slide");
             StartCoroutine(SlideCollider());
