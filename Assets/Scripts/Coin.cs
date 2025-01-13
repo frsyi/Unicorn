@@ -23,7 +23,7 @@ public class Coin : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             mainSceneManagerScript.addCoin();
-
+           
             if (coinAudio != null)
             {
                 coinAudio.Play();

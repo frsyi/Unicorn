@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnimator;
     private CapsuleCollider playerCollider;
 
+    public bool hasMagnet = false;
+    private float magnetTimer;
+    public float magnetRange = 5f;
+    
     public AudioClip gameClip;
     public AudioClip jumpClip;
     private AudioSource playerAudio;
@@ -79,6 +83,25 @@ public class PlayerController : MonoBehaviour
         {
             forwardSpeed += 0.1f * Time.deltaTime;
         }
+
+        if (hasMagnet)
+        {
+            magnetTimer -= Time.deltaTime;
+            if (magnetTimer <= 0)
+            {
+                hasMagnet = false;
+            }
+
+            GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
+            foreach (GameObject coin in coins)
+            {
+                float distance = Vector3.Distance(transform.position, coin.transform.position);
+                if (distance < magnetRange)
+                {
+                    coin.transform.position = Vector3.MoveTowards(coin.transform.position, transform.position, Time.deltaTime * 10);
+                }
+            }
+        }
     }
 
     private IEnumerator SlideCollider()
@@ -104,5 +127,11 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.SaveCoinData();
             SceneManager.LoadScene(2);
         }
+    }
+
+    public void ActivateMagnet(float duration)
+    {
+        hasMagnet = true;
+        magnetTimer = duration;
     }
 }
