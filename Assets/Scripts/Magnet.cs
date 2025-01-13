@@ -29,6 +29,8 @@ public class Magnet : MonoBehaviour
 
                 GetComponent<Renderer>().enabled = false;
                 GetComponent<Renderer>().enabled = false;
+
+                Destroy(gameObject, magnetAudio.clip.length);
             }
             else
             {
