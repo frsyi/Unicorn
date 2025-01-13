@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     public bool hasMagnet = false;
     private float magnetTimer;
     public float magnetRange = 5f;
-    
+    private ParticleSystem magnetEffect;
+
     public AudioClip gameClip;
     public AudioClip jumpClip;
     private AudioSource playerAudio;
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
         playerAnimator = GetComponent<Animator>();
         playerCollider = GetComponent<CapsuleCollider>();
+        magnetEffect = GetComponent<ParticleSystem>();
 
         originalColliderCenter = playerCollider.center;
         originalColliderHeight = playerCollider.height;
@@ -90,6 +92,10 @@ public class PlayerController : MonoBehaviour
             if (magnetTimer <= 0)
             {
                 hasMagnet = false;
+                if (magnetEffect != null)
+                {
+                    magnetEffect.Stop();
+                }
             }
 
             GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
@@ -133,5 +139,10 @@ public class PlayerController : MonoBehaviour
     {
         hasMagnet = true;
         magnetTimer = duration;
+
+        if (magnetEffect != null)
+        {
+            magnetEffect.Play();
+        }
     }
 }
