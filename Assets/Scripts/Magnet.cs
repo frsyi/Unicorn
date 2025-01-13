@@ -5,6 +5,12 @@ using UnityEngine;
 public class Magnet : MonoBehaviour
 {
     public float duration = 5f;
+    private AudioSource magnetAudio;
+
+    private void Start()
+    {
+        magnetAudio = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -16,7 +22,18 @@ public class Magnet : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().ActivateMagnet(duration);
-            Destroy(gameObject);
+
+            if (magnetAudio != null)
+            {
+                magnetAudio.Play();
+
+                GetComponent<Renderer>().enabled = false;
+                GetComponent<Renderer>().enabled = false;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
