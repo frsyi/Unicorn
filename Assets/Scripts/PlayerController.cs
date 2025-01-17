@@ -65,9 +65,9 @@ public class PlayerController : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isOnGround)
         {
-            playerAnimator.SetTrigger("Jump");
             playerRb.AddForce(Vector3.up * 8, ForceMode.Impulse);
             isOnGround = false;
+            playerAnimator.SetBool("isJumping", true);
 
             if (jumpClip != null)
             {
@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Road"))
         {
             isOnGround = true;
+            playerAnimator.SetBool("isJumping", false);
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
